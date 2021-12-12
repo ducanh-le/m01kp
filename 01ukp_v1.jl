@@ -57,9 +57,9 @@ function branch_and_bound(p,w,C,i_branch,xBefore,zBest,lim_total)
 end
 
 #calculer borne Dantzig et solution glouton à partir d'indice i_branch (exclu : x[k] = 1 à partir de k = i_branch + 1)
-#pour la borne total, on met i_branch = 0
-#retourner borne Dantzig, x et z glouton
-function calcul_limit(p,w,C,xBefore,i_branch)
+#pour la borne total, on met i_branch = 0 et n'entrer pas xBefore comme un argument
+#retourner borne Dantzig, x et z glouton (sum_p)
+function calcul_limit(p,w,C,i_branch,xBefore=zeros(Int64,length(p)))
     sum_p, sum_w = 0, 0
     xGlouton = zeros(Int, length(p))
 

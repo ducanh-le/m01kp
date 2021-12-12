@@ -42,9 +42,9 @@ function branch_and_bound_v2(p,w,C,i_branch,xBefore,zBest,lim_total)
 end
 
 #calculer borne M&T et solution glouton à partir d'indice i_branch (exclu : x[k] = 1 à partir de k = i_branch + 1)
-#pour la borne total, on met i_branch = 0
+#pour la borne total, on met i_branch = 0 et n'entrer pas xBefore comme un argument
 #retourner borne M&T, x et z glouton
-function calcul_limit_v2(p,w,C,xBefore,i_branch)
+function calcul_limit_v2(p,w,C,i_branch,xBefore=zeros(Int64,length(p)))
     sum_p, sum_w = 0, 0
     xGlouton = zeros(Int, length(p))
 
