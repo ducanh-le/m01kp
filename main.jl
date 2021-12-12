@@ -13,6 +13,7 @@ function main()
     #x2,z2 = resolution_v2(p,w,C)    #Martello et Toth
     println(relax_linear_bound(p,w,c))
     println(relax_surrogate_bound(p,w,c))
+    println(calcul_lower_bound(p,w,c))
 end
 
 main()
