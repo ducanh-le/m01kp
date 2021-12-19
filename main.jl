@@ -9,8 +9,9 @@ function main()
     files      = getfname(dat_folder)
     io = open("resultat", "w")
     for instance = 1:length(files)
+        println("Data file : ",files[instance])
         p,w,c = load(string(dat_folder,"/",files[instance]))
-        p,w = renumerotation(p,w)
+        p,w,c = renumerotation_v2(p,w,c)
         println(io, files[instance], " : ")
         println(io, "c = ", c)
         println(io, "p = ", p)
@@ -22,6 +23,7 @@ function main()
         println(io)
     end
     close(io)
+    println("Fini ! Les résultats sont écrits dans le fichier 'resultat' !")
 end
 
 main()

@@ -12,10 +12,7 @@ function getfname(pathtofolder)
     k=1
     for f in allfiles
         # traite chaque fichier du repertoire
-        if f[1] != '.'
-            # pas un fichier cache => conserver
-            println("fname = ", f)
-        else
+        if f[1] == '.'
             # fichier cache => supprimer
             flag[k] = false
         end

@@ -44,3 +44,55 @@ function calcul_lower_bound(p,w,c)
 
     return lower_bound
 end
+
+#arrange the items in decreasing order of their profit (p/w) and arrange the knapsacks in increasing order of their capacities (c)
+function renumerotation_v2(p,w,c)
+    n = length(p)
+    mem = Array{Tuple{Int,Int},1}(undef,n)
+    for i in 1:n
+        mem[i] = (p[i],w[i])
+    end
+    sort!(mem, by = x -> x[1]/x[2], rev = true)
+    for i in 1:n
+        p[i] = mem[i][1]
+        w[i] = mem[i][2]
+    end
+    m = length(c)
+    sort!(c)
+    return p,w,c
+end
+
+#bound and bound algorithm for M01KP (Martello & Toth)
+function bound_and_bound(p,w,c)
+    n = length(p)
+    m = length(c)
+    b = Array{Int,1}(undef,n)  #value = 1 if item wasn't inserted in knapsacks 1..i, 0 otherwise
+    fill!(b,1)
+    k = copy(c)   #available capacities of each knapsacks
+    x_current = Array{Int,2}(undef,m-1,n); fill!(x_current,0) #current solution
+    S = Array{Int,2}(undef,m-1,n); fill!(S,0) # S[q,j] pointer to the item inserted in knapsack q just before item j
+    S0 = Array{Int,1}(undef,m-1); fill!(S0,-1) #pointer to the last item inserted in knapsack q; S0[q] = -1 if q is empty
+    z_best = z_current = 0
+    i = 1
+    upper = upper_bound(p,w,c,i,k,b,z_current)
+
+end
+
+#solve the current relaxation surrogate problem to find the upper bound
+function upper_bound(p,w,c,i,k,b,z_current)
+    p_new = Int[]
+    w_new = Int[]
+    for j in 1:length(b)
+        if b[j] == 1    #item wasn't inserted in any knapsacks
+            append!(p_new,p[j])
+            append!(w_new,w[j])
+        end
+    end
+    c_new = k[i] + sum(c[j] for j in i+1:length(c))
+    x_new, z_new = resolution_v2(p_new,w_new,c_new)
+    return z_current + z_new
+end
+
+function lower_bound()
+
+end
