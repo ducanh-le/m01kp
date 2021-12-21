@@ -1,7 +1,7 @@
 #resoluer le probleme_v2
 function resolution_v2(p,w,C)
     xBest = zeros(Int64,length(p))
-    lim_total, xBest, zBest = calcul_limit_v2(p,w,C,xBest,0)
+    lim_total, xBest, zBest = calcul_limit_v2(p,w,C,0,xBest)
     println("Problem's limit by M&T is ",lim_total)
     println("xInit = ",xBest," with zBest = ",zBest)
     xBest, zBest = branch_and_bound_v2(p,w,C,0,xBest,zBest,lim_total)
@@ -18,7 +18,7 @@ function branch_and_bound_v2(p,w,C,i_branch,xBefore,zBest,lim_total)
     for k in i_branch_next
         xCurrent = copy(xBefore)
         xCurrent[k] = 0
-        lim_current, xCurrent, zCurrent = calcul_limit_v2(p,w,C,xCurrent,k)
+        lim_current, xCurrent, zCurrent = calcul_limit_v2(p,w,C,k,xCurrent)
         println("Branch and Bound, i_branch = ",k,", branch's limit by M&T is ",lim_current," trouver z = ",zCurrent," avec x = ",xCurrent)
 
         if lim_current > zBest

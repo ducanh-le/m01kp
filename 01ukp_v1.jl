@@ -15,8 +15,8 @@ end
 
 #resoluer le probleme
 function resolution(p,w,C)
-    xBest = zeros(Int64,length(p))
-    lim_total, xBest, zBest = calcul_limit(p,w,C,xBest,0)
+    xBest = zeros(Int,length(p))
+    lim_total, xBest, zBest = calcul_limit(p,w,C,0,xBest)
     println("Problem's limit by Dantzig is ",lim_total)
     println("xInit = ",xBest," with zBest = ",zBest)
     xBest, zBest = branch_and_bound(p,w,C,0,xBest,zBest,lim_total)
@@ -33,7 +33,7 @@ function branch_and_bound(p,w,C,i_branch,xBefore,zBest,lim_total)
     for k in i_branch_next
         xCurrent = copy(xBefore)
         xCurrent[k] = 0
-        lim_current, xCurrent, zCurrent = calcul_limit(p,w,C,xCurrent,k)
+        lim_current, xCurrent, zCurrent = calcul_limit(p,w,C,k,xCurrent)
         println("Branch and Bound, i_branch = ",k,", branch's limit by Dantzig is ",lim_current," trouver z = ",zCurrent," avec x = ",xCurrent)
 
         if lim_current > zBest
@@ -59,7 +59,7 @@ end
 #calculer borne Dantzig et solution glouton à partir d'indice i_branch (exclu : x[k] = 1 à partir de k = i_branch + 1)
 #pour la borne total, on met i_branch = 0 et n'entrer pas xBefore comme un argument
 #retourner borne Dantzig, x et z glouton (sum_p)
-function calcul_limit(p,w,C,i_branch,xBefore=zeros(Int64,length(p)))
+function calcul_limit(p,w,C,i_branch,xBefore=zeros(Int,length(p)))
     sum_p, sum_w = 0, 0
     xGlouton = zeros(Int, length(p))
 
