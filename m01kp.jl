@@ -75,7 +75,13 @@ function bound_and_bound(p,w,c)
     z_best = z_current = 0
     i = 1
     upper = upper_bound(p,w,c,i,k,b,z_current)
-
+    keep_going = true
+    
+    while keep_going
+    #step 2
+        lower = lower_bound(p,w,i,k,b,z_current,S,x_history)
+        
+    end
 end
 
 #solve the current relaxation surrogate problem to find the upper bound
